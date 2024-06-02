@@ -273,3 +273,7 @@ body {
 .react-datepicker__time-list-item--selected {
   background-color: #624cf5 !important;
 }
+
+.cl-formButtonPrimary:hover {
+  background-color: #c2410c;
+}

@@ -25,7 +25,7 @@ export default function RootLayout({
           colorNeutral: "#7c2d12",
           colorPrimary: "#ea580c",
           colorText: "#431407",
-          colorBackground: "#fff7ed",
+          colorBackground: "#fffaf5",
           borderRadius: "0.5rem"
         },
         layout: {
