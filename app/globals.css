@@ -249,7 +249,7 @@ body {
 .cl-formButtonPrimary:hover,
 .cl-formButtonPrimary:focus,
 .cl-formButtonPrimary:active {
-  background-color: #705CF7
+  background-color: #c2410c
 }
 
 /* ========================================== REACT-DATEPICKER STYLES */
@@ -274,6 +274,6 @@ body {
   background-color: #624cf5 !important;
 }
 
-.cl-formButtonPrimary:hover {
-  background-color: #c2410c;
+.cl-userButtonBox {
+  padding: 0.5rem;
 }
