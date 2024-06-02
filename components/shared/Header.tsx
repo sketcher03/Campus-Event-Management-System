@@ -5,10 +5,10 @@ import NavbarItems from "./NavbarItems"
 
 const Header = () => {
   return (
-    <header className="w-full">
+    <header className="w-full pt-5">
       <div className="wrapper flex items-center justify-between">
-        <Link href="/" className="w-36 pt-5">
-          <h1 className="text-2xl font-bold text-slate-900">CEMS</h1>
+        <Link href="/" className="w-36">
+          <h1 className="text-2xl font-bold text-orange-800">CEMS</h1>
         </Link>
 
         <SignedIn>
