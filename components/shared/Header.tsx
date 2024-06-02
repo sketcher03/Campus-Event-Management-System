@@ -1,4 +1,4 @@
-import { SignedOut } from "@clerk/nextjs"
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs"
 import Link from "next/link"
 import { Button } from "../ui/button"
 
@@ -11,9 +11,12 @@ const Header = () => {
         </Link>
 
         <div className="flex w-32 justify-end">
+          <SignedIn>
+            <UserButton afterSignOutUrl="/" />
+          </SignedIn>
           <SignedOut>
-            <Button asChild size='lg' className="rounded-xl">
-              <Link href="/login">
+            <Button asChild size='lg' className="rounded-xl bg-orange-500 hover:bg-orange-700">
+              <Link href="/sign-in">
                 Login
               </Link>
             </Button>

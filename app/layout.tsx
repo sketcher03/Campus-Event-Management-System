@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 
 import { ClerkProvider } from "@clerk/nextjs";
+import { dark } from "@clerk/themes";
 
 import "./globals.css";
 
@@ -18,7 +19,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
+    <ClerkProvider
+      appearance={{   
+        variables: {
+          colorNeutral: "#7c2d12",
+          colorPrimary: "#ea580c",
+          colorText: "#431407",
+          colorBackground: "#fff7ed",
+          borderRadius: "0.5rem"
+        },
+        layout: {
+          socialButtonsPlacement: 'bottom',
+        }
+      }}
+    >
       <html lang="en">
         <body className={poppins.variable}>{children}</body>
       </html>
