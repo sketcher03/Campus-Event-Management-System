@@ -1,22 +1,33 @@
 import mongoose from "mongoose";
+import { handleError } from "../utils"
 
-const DB_URI = process.env.DB_URI;
+const MONGODB_URI = process.env.MONGODB_URI;
 
 let cached = (global as any).mongoose || { conn: null, promise: null };
 
 export const connectToDb = async () => {
-    if (cached.conn)
-        return cached.connect;
+    
+    try {
+        if (cached.conn)
+            return cached.conn;
 
-    if (!DB_URI)
-        throw new Error('URI is Missing');
+        console.log("error");
+        if (!MONGODB_URI)
+            throw new Error('URI is Missing');
 
-    cached.promise = cached.promise || mongoose.connect(DB_URI, {
-        dbName: 'CEMS',
-        bufferCommands: false,
-    });
+        console.log("error");
+        cached.promise = cached.promise || mongoose.connect(MONGODB_URI, {
+            dbName: 'CEMS',
+            bufferCommands: false,
+        });
 
-    cached.conn = await cached.promise;
+        console.log("error");
 
-    return cached.conn;
+        cached.conn = await cached.promise;
+
+        return cached.conn;
+    } catch (error) {
+        handleError(error);
+    }
+
 }

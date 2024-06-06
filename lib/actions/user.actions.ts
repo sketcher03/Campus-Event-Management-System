@@ -2,7 +2,7 @@
 
 import { CreateUserParams, UpdateUserParams } from "@/types"
 import { handleError } from "../utils"
-import { connectToDb } from "../db"
+import { connectToDb } from "../db/index"
 import User from "../db/models/user.model"
 import { revalidatePath } from "next/cache"
 
