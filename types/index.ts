@@ -147,3 +147,13 @@ export type SearchParamProps = {
     params: { id: string }
     searchParams: { [key: string]: string | string[] | undefined }
 }
+
+export type BanProps = {
+    id: string 
+    role: string
+}
+
+export type RoleProps = {
+    id: string
+    role: string
+}
