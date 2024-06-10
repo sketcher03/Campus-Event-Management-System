@@ -7,12 +7,23 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { ICategory } from "@/lib/db/models/category.model"
+import { getAllCategories } from "@/lib/actions/category.actions"
 
 
 const ComboBox = ({ onChangeHandler, value }: ComboBoxProps) => {
     const [categories, setCategories] = useState<ICategory[]>([]);
+
+    useEffect(() => {
+        const getCategories = async () => {
+
+            const categoryList = await getAllCategories();
+            categoryList && setCategories(categoryList as ICategory[]);
+        }
+
+        getCategories();
+    }, [])
 
     return (
         <div>

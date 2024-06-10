@@ -8,7 +8,6 @@ import { RoleItems } from "./_roleItems";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { AlertCircle } from "lucide-react";
 
-
 export default async function UserControl(params: {
     searchParams: { search?: string };
 }) {

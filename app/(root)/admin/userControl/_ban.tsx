@@ -52,7 +52,7 @@ export function BanSection(props: BanProps) {
                                         <form onSubmit={handleBan}>
                                             <input type="hidden" value={props.id} name="id" />
                                             <input type="hidden" value="banned" name="role" />
-                                            <AlertDialogAction type="submit" className="bg-red-500 hover:bg-red-600" >Ban User</AlertDialogAction>
+                                            <AlertDialogAction type="submit" className="bg-red-500 hover:bg-orange-600" >Ban User</AlertDialogAction>
                                         </form>
                                     </AlertDialogFooter>
                                 </AlertDialogContent>
