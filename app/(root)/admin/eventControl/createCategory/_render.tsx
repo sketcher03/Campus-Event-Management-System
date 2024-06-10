@@ -14,19 +14,18 @@ import {
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { Input } from "@/components/ui/input";
-import { createCategory } from "@/lib/actions/category.actions";
 import { useState } from "react";
 import { Button } from '@/components/ui/button';
+import { categoryCreate } from './_action';
 
-const CreateCategoryAlert = () => {
+const CreateCategoryAlertBox = () => {
 
     const router = useRouter();
 
     const [newCategory, setNewCategory] = useState('');
 
-    const handleAddCategory = async () => {
-        await createCategory({ title: newCategory.trim() })
-
+    const handleAddCategory = () => {
+        categoryCreate(newCategory);
         router.refresh();
     }
 
@@ -54,4 +53,4 @@ const CreateCategoryAlert = () => {
     );
 }
 
-export default CreateCategoryAlert
+export default CreateCategoryAlertBox

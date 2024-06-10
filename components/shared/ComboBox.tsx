@@ -6,24 +6,17 @@ import {
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from "@/components/ui/select"
-import { useEffect, useState } from "react"
-import { ICategory } from "@/lib/db/models/category.model"
-import { getAllCategories } from "@/lib/actions/category.actions"
+} from "@/components/ui/select";
+import { getCategories } from "./_action";
 
+type CategoryType = {
+    _id: string,
+    title: string
+}
 
 const ComboBox = ({ onChangeHandler, value }: ComboBoxProps) => {
-    const [categories, setCategories] = useState<ICategory[]>([]);
 
-    useEffect(() => {
-        const getCategories = async () => {
-
-            const categoryList = await getAllCategories();
-            categoryList && setCategories(categoryList as ICategory[]);
-        }
-
-        getCategories();
-    }, [])
+    const categoryList = getCategories() || [];
 
     return (
         <div>
@@ -33,7 +26,7 @@ const ComboBox = ({ onChangeHandler, value }: ComboBoxProps) => {
                 </SelectTrigger>
                 <SelectContent>
                     {
-                        categories.length > 0 && categories.map((category) => (
+                        categoryList.length > 0 && categoryList.map((category: CategoryType) => (
                             <SelectItem key={category._id} value={category._id} className="select-item p-regular-14">{category.title}</SelectItem>
                         ))
                     }

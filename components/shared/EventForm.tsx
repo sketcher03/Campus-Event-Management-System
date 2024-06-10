@@ -13,7 +13,6 @@ import * as z from "zod"
 import { eventInitialValues } from "@/constants/constant"
 import ComboBox from "./ComboBox"
 
-
 const EventForm = ({ userId, type }: EventFormProps) => {
     
     const initialValues = eventInitialValues;
