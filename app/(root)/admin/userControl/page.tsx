@@ -2,11 +2,12 @@ import { redirect } from "next/navigation";
 import { checkRole } from "@/utils/roles";
 import { SearchUsers } from "./_search-users";
 import { clerkClient } from "@clerk/nextjs/server";
-import { setRole } from "./_actions";
-import { roles } from '@/constants/constant';
 
 import { BanSection } from "./_ban";
 import { RoleItems } from "./_roleItems";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { AlertCircle } from "lucide-react";
+
 
 export default async function UserControl(params: {
     searchParams: { search?: string };
@@ -50,9 +51,25 @@ export default async function UserControl(params: {
                                     <span className="text-orange-500" >Current Role: </span>
                                     {role}
                                 </div>
-                                
-                                <RoleItems id={user.id} role={role} />
-                                
+
+                                {
+                                    (role != "banned") ? (
+                                        <RoleItems id={user.id} role={role} />
+                                    ) : (
+                                        <Alert className="my-5" variant="destructive">
+                                            <AlertCircle className="h-8 w-8" />
+                                            <div className="pt-1 ml-5">
+                                                <AlertTitle>Status: Banned</AlertTitle>
+                                                <AlertDescription>
+                                                    User is Currently Banned.
+                                                </AlertDescription>
+                                            </div>
+                                        </Alert>
+                                    )
+                                }
+
+
+
                                 <BanSection id={user.id} role={role} />
                             </div>
                         );
@@ -63,16 +80,3 @@ export default async function UserControl(params: {
         </>
     );
 }
-
-/*
-<div key={Item.label}>
-    <h1 className="text-red-400">{Item.description}</h1>
-    <form action={setRole}>
-        <SelectItem value={Item.label} className="text-orange-700">
-            <input type="hidden" value={user.id} name="id" />
-            <input type="hidden" value={Item.label} name="role" />
-            <button type="submit">{Item.description}</button>
-        </SelectItem>
-    </form>
-</div>
-*/

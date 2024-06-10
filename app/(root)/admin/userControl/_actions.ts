@@ -2,7 +2,6 @@
 
 import { checkRole } from "@/utils/roles";
 import { clerkClient } from "@clerk/nextjs/server";
-import { redirect } from "next/navigation";
 
 export async function setRole(id: string, role: string) {
     // Check that the user trying to set the role is an admin

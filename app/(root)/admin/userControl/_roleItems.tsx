@@ -8,8 +8,14 @@ import { Command, CommandInput, CommandItem, CommandList } from "@/components/ui
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import { ChevronsUpDown } from "lucide-react";
+import { toast } from "@/components/ui/use-toast"
+import { ToastAction } from "@/components/ui/toast";
+import Link from "next/link";
+import { useRouter } from 'next/navigation';
 
 export function RoleItems(props: RoleProps) {
+    const router = useRouter();
+
     const [open, setOpen] = React.useState(false)
     const [value, setValue] = React.useState("")
 
@@ -25,7 +31,7 @@ export function RoleItems(props: RoleProps) {
                             aria-expanded={open}
                             className="w-[200px] justify-between"
                         >
-                            Select Role...
+                            Select New Role...
                             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                         </Button>
                     </PopoverTrigger>
@@ -40,6 +46,11 @@ export function RoleItems(props: RoleProps) {
                                             <CommandItem className="text-orange-700" key={Item.label} value={Item.label} onSelect={(currentValue) => {
                                                 setRole(props.id, currentValue)
                                                 setOpen(false)
+                                                toast({
+                                                    title: "Role Changed",
+                                                    description: "New Role: " + Item.label,
+                                                    action: <ToastAction altText="Refresh"><Button className="bg-transparent hover:bg-transparent text-black" onClick={() => router.refresh()}>Refresh</Button></ToastAction>
+                                                })
                                             }}>
                                                 {Item.description}
                                             </CommandItem>

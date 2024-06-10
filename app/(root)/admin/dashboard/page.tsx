@@ -12,7 +12,7 @@ export default async function AdminDashboard() {
 
     return (
         <>
-            <section className="bg-orange-50 py-40 mt-5">
+            <section className="bg-orange-50 py-32 mt-5">
                 <div className="wrapper flex flex-col items-center">
                     <h1 className="h5-bold text-orange-400">Admin dashboard</h1>
                     <p className="my-4 text-orange-300">This page is restricted to users with the 'admin' role.</p>
