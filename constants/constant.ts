@@ -5,7 +5,7 @@ export const navItems = [
     },
     {
         label: 'Propose Event',
-        route: '/events/propose',
+        route: '/event/propose',
     },
     {
         label: 'Browse Events',
@@ -35,3 +35,18 @@ export const roles = [
         description: 'Staff',
     },
 ]
+
+export const eventInitialValues = {
+    title: '',
+    description: '',
+    venue: '',
+    host: '',
+    image: '',
+    startDateTime: new Date(),
+    endDateTime: new Date(),
+    categoryId: '',
+    organizerId: '',
+    price: '',
+    isFree: false,
+    url: '',
+}

@@ -100,7 +100,7 @@ export type Event = {
 
 // ====== CATEGORY PARAMS
 export type CreateCategoryParams = {
-    categoryName: string
+    title: string
 }
 
 // ====== ORDER PARAMS
@@ -156,4 +156,14 @@ export type BanProps = {
 export type RoleProps = {
     id: string
     role: string
+}
+
+export type EventFormProps = {
+    userId: string,
+    type: "create" | "update" 
+}
+
+export type ComboBoxProps = {
+    value?: string,
+    onChangeHandler?: () => void
 }
