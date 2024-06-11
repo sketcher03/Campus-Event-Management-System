@@ -5,6 +5,7 @@ import { FilePenLine } from 'lucide-react';
 import Link from 'next/link';
 
 import { Separator } from "@/components/ui/separator"
+import { Avatar, AvatarImage } from "@/components/ui/avatar"
 
 const EventCard = (props: EventCardProps) => {
 
@@ -28,6 +29,12 @@ const EventCard = (props: EventCardProps) => {
                     </div>
                 )
             }
+
+            <div className="absolute right-2 top-[180px] flex flex-col gap-4 mr-3 rounded-full shadow-lg transition-all">
+                <Avatar className="h-[96px] w-[96px]">
+                    <AvatarImage src={props.event.dpImage} />
+                </Avatar>
+            </div>
 
             <div className="flex min-h-[200px] flex-col gap-3 p-5">
                 {

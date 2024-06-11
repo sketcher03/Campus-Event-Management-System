@@ -3,7 +3,7 @@ import { SearchEventParamProps } from "@/types"
 import Image from "next/image";
 
 import { Separator } from "@/components/ui/separator"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Avatar, AvatarImage } from "@/components/ui/avatar"
 import { formatDateAndTime } from "@/lib/utils";
 import { Calendar, Link, Link2, MapPin } from "lucide-react";
 import EventRegistration from "@/components/shared/EventRegistration";
