@@ -16,8 +16,7 @@ import { useRouter } from 'next/navigation';
 export function RoleItems(props: RoleProps) {
     const router = useRouter();
 
-    const [open, setOpen] = React.useState(false)
-    const [value, setValue] = React.useState("")
+    const [open, setOpen] = React.useState(false);
 
     return (
         <div>

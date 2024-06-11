@@ -66,9 +66,7 @@ export default async function UserControl(params: {
                                         </Alert>
                                     )
                                 }
-
-
-
+                                
                                 <BanSection id={user.id} role={role} />
                             </div>
                         );

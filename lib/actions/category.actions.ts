@@ -1,3 +1,5 @@
+'use server'
+
 import { CreateCategoryParams } from "@/types";
 import { connectToDb } from "../db";
 import Category from "../db/models/category.model";

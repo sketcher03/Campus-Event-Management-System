@@ -23,11 +23,13 @@ export type CreateEventParams = {
     event: {
         title: string
         description: string
-        location: string
-        imageUrl: string
+        venue: string
+        host: string
+        image: string
         startDateTime: Date
         endDateTime: Date
         categoryId: string
+        organizerId: string
         price: string
         isFree: boolean
         url: string

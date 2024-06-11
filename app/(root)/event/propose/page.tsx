@@ -12,7 +12,7 @@ const ProposeEvent = () => {
 
     const { sessionClaims } = auth();
 
-    const userId = sessionClaims?.userId as string;
+    const userId = sessionClaims?.metadata.userId as string;
 
     return (
         <div>
