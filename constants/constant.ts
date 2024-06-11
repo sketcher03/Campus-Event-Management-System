@@ -60,6 +60,7 @@ export const eventInitialValues = {
     description: '',
     venue: '',
     host: '',
+    dpImage: '',
     image: '',
     startDateTime: new Date(),
     endDateTime: new Date(),

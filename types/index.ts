@@ -26,6 +26,7 @@ export type CreateEventParams = {
         description: string
         venue: string
         host: string
+        dpImage: string
         image: string
         startDateTime: Date
         endDateTime: Date
@@ -87,7 +88,8 @@ export type Event = {
     description: string
     price: string
     isFree: boolean
-    imageUrl: string
+    dpImage: string
+    image: string
     location: string
     startDateTime: Date
     endDateTime: Date
@@ -96,6 +98,8 @@ export type Event = {
         _id: string
         firstName: string
         lastName: string
+        username: string,
+        photo: string
     }
     category: {
         _id: string
@@ -193,4 +197,13 @@ export type EventCollectionProps = {
 export type EventCardProps = {
     event: IEvent,
     hidePrice?: boolean
+}
+
+export type EventRegistrationProps = {
+    event: IEvent,
+}
+
+export type RegisterProps = {
+    event: IEvent,
+    userId: string 
 }

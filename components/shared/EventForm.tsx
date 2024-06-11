@@ -13,8 +13,7 @@ import { eventFormSchema } from "@/lib/validate"
 import * as z from "zod"
 import { eventInitialValues } from "@/constants/constant"
 import ComboBox from "./ComboBox"
-import { Textarea } from "../ui/textarea"
-import FileUploader from "./FileUploader"
+import { Textarea } from "../ui/textarea";
 import { useState } from "react"
 import Image from "next/image"
 import DatePicker from "react-datepicker";
@@ -25,11 +24,14 @@ import { useRouter } from "next/navigation"
 import { proposeEvent } from "@/lib/actions/event.actions"
 
 import { Calendar, CalendarRange, CircleDollarSign, Link, MapPin, User } from "lucide-react"
+import DpUploader from "./DpUploader"
+import CoverUploader from "./CoverUploader"
 
 
 const EventForm = ({ userId, type }: EventFormProps) => {
     const router = useRouter();
-    const [files, setFiles] = useState<File[]>([]);
+    const [dp, setDp] = useState<File[]>([]);
+    const [cover, setCover] = useState<File[]>([]);
 
     const initialValues = eventInitialValues;
 
@@ -47,22 +49,33 @@ const EventForm = ({ userId, type }: EventFormProps) => {
         const eventValues = values;
         console.log(eventValues, userId);
 
-        let uploadedImage = values.image;
+        let uploadedDpImage = values.dpImage;
+        let uploadedCoverImage = values.image;
 
-        if (files.length > 0) {
-            const uploadedImages = await startUpload(files)
+        if (dp.length > 0) {
+            const uploadedImages = await startUpload(dp)
 
             if (!uploadedImages) {
                 return;
             }
 
-            uploadedImage = uploadedImages[0].url;
+            uploadedDpImage = uploadedImages[0].url;
+        }
+
+        if (cover.length > 0) {
+            const uploadedImages = await startUpload(cover)
+
+            if (!uploadedImages) {
+                return;
+            }
+
+            uploadedCoverImage = uploadedImages[0].url;
         }
 
         if (type === "Propose") {
             try {
                 const newEvent = await proposeEvent({
-                    event: { ...values, image: uploadedImage },
+                    event: { ...values, dpImage: uploadedDpImage, image: uploadedCoverImage },
                     userId,
                     path: '/profile'
                 });
@@ -125,12 +138,25 @@ const EventForm = ({ userId, type }: EventFormProps) => {
                     />
                     <FormField
                         control={form.control}
+                        name="dpImage"
+                        render={({ field }) => (
+                            <FormItem className="w-full">
+                                <FormLabel>Event Logo</FormLabel>
+                                <FormControl className="h-72">
+                                    <DpUploader onFieldChange={field.onChange} image={field.value} setFiles={setDp} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
                         name="image"
                         render={({ field }) => (
                             <FormItem className="w-full">
                                 <FormLabel>Event Cover Image</FormLabel>
                                 <FormControl className="h-72">
-                                    <FileUploader onFieldChange={field.onChange} image={field.value} setFiles={setFiles} />
+                                    <CoverUploader onFieldChange={field.onChange} image={field.value} setFiles={setCover} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>

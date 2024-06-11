@@ -10,7 +10,7 @@ import { Button } from '../ui/button';
 import { convertFileToUrl } from '@/lib/utils';
 import { MonitorUp } from 'lucide-react';
 
-const FileUploader = (props: FileUploadProps) => {
+const DpUploader = (props: FileUploadProps) => {
 
     const onDrop = useCallback((acceptedFiles: FileWithPath[]) => {
         props.setFiles(acceptedFiles);
@@ -52,4 +52,4 @@ const FileUploader = (props: FileUploadProps) => {
     );
 }
 
-export default FileUploader
+export default DpUploader

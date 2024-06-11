@@ -7,6 +7,7 @@ export interface IEvent extends Document {
     venue?: string;
     host?: string;
     createdAt: Date;
+    dpImage: string;
     image: string;
     startDate: Date;
     endDate: Date;
@@ -14,7 +15,7 @@ export interface IEvent extends Document {
     isFree: boolean;
     url?: string;
     category: { _id: string, title: string };
-    organizer: { _id: string, firstName: string, lastName: string };
+    organizer: { _id: string, firstName: string, lastName: string, username: string, photo: string };
 }
 
 const EventSchema = new Schema({
@@ -23,6 +24,7 @@ const EventSchema = new Schema({
     venue: { type: String, required: true },
     host: { type: String, required: true },
     createdAt: { type: Date, default: Date.now },
+    dpImage: { type: String, required: true },
     image: { type: String, required: true },
     startDate: { type: Date, default: Date.now },
     endDate: { type: Date, default: Date.now },

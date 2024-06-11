@@ -17,6 +17,7 @@ export const eventFormSchema = z.object({
     host: z.string().min(5, {
         message: "Host must be at least 5 characters.",
     }),
+    dpImage: z.string(),
     image: z.string(),
     startDateTime: z.date(),
     endDateTime: z.date(),
