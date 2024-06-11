@@ -1,4 +1,4 @@
-export const navItems = [
+export const navItemsPrivilege = [
     {
         label: 'Home',
         route: '/',
@@ -10,6 +10,25 @@ export const navItems = [
     {
         label: 'Browse Events',
         route: '/event/browse',
+    },
+    {
+        label: 'My Profile',
+        route: '/profile',
+    },
+]
+
+export const navItemsGeneral = [
+    {
+        label: 'Home',
+        route: '/',
+    },
+    {
+        label: 'Browse Events',
+        route: '/event/browse',
+    },
+    {
+        label: 'My Profile',
+        route: '/profile',
     },
 ]
 

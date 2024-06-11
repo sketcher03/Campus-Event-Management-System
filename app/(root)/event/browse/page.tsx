@@ -13,10 +13,13 @@ export default async function BrowseEvents() {
     
     //console.log(events);
 
-    // need to build a Browse events page with the data
-
     return (
-        <div className='wrapper'>
+        <div>
+            <section className="bg-orange-50 bg-center py-8 my-2 mb-6">
+                <h3 className="h3-bold text-center text-orange-500 py-2">Browse Events</h3>
+                <p className="text-center text-orange-300">Search and Filter to Find your Desired Event</p>
+            </section>
+
             <EventCollection
                 data={events?.data}
                 emptyTitle="No Events Found"

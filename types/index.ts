@@ -189,3 +189,8 @@ export type EventCollectionProps = {
     urlParamName?: string,
     collectionType?: 'AllEvents' | 'Organized' | 'Registered' 
 }
+
+export type EventCardProps = {
+    event: IEvent,
+    hidePrice?: boolean
+}

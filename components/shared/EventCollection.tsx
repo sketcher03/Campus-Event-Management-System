@@ -7,6 +7,7 @@ import {
     AlertDescription,
     AlertTitle,
 } from "@/components/ui/alert"
+import EventCard from "./EventCard"
 
 const EventCollection = ({
     data,
@@ -18,7 +19,7 @@ const EventCollection = ({
     urlParamName,
 }: EventCollectionProps) => {
     return (
-        <div>
+        <div className="wrapper">
             {
                 data.length > 0 ? (
                     <div className="flex flex-col items-center">
@@ -28,10 +29,10 @@ const EventCollection = ({
 
                                 return (
                                     <li key={event._id} className="flex justify-center">
-                                        {
-                                            // Card component rendered here
-                                            event.title
-                                        }
+                                        
+                                        {/*Card component rendered here*/}
+                                        <EventCard event={event} hidePrice={hidePrice} />
+                                        
                                     </li>
                                 )
                             })}

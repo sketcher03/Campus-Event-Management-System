@@ -12,7 +12,7 @@ export async function setRole(id: string, role: string) {
 
     const { sessionClaims } = auth();
 
-    const userId = sessionClaims?.metadata as string;
+    const userId = sessionClaims?.metadata.userId as string;
 
     try {
         const res = await clerkClient.users.updateUser(
