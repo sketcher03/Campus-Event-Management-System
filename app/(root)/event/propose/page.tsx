@@ -21,7 +21,7 @@ const ProposeEvent = () => {
                 <p className="text-center text-orange-300">Submitted event will be held for Review</p>
             </section>
             <div className="my-6 wrappersm">
-                <EventForm userId={userId} type="create" />
+                <EventForm userId={userId} type="Propose" />
             </div>
         </div>
     )

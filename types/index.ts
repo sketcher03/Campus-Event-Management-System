@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from 'react'
+
 // ====== USER PARAMS
 export type CreateUserParams = {
     clerkId: string
@@ -160,10 +162,16 @@ export type RoleProps = {
 
 export type EventFormProps = {
     userId: string,
-    type: "create" | "update" 
+    type: "Propose" | "Update" 
 }
 
 export type ComboBoxProps = {
     value?: string,
     onChangeHandler?: () => void
+}
+
+export type FileUploadProps = {
+    onFieldChange: (url: string) => void
+    image: string
+    setFiles: Dispatch<SetStateAction<File[]>>
 }

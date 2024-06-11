@@ -11,17 +11,17 @@ export const connectToDb = async () => {
         if (cached.conn)
             return cached.conn;
 
-        console.log(MONGODB_URI);
+        //console.log(MONGODB_URI);
         if (!MONGODB_URI)
             throw new Error('URI is Missing');
 
-        console.log("error");
+        //console.log("error");
         cached.promise = cached.promise || mongoose.connect(MONGODB_URI, {
             dbName: 'CEMS',
             bufferCommands: false,
         });
 
-        console.log("error");
+        //console.log("error");
 
         cached.conn = await cached.promise;
 

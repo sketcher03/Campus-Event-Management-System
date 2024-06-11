@@ -21,7 +21,7 @@ const UpdateEvent = () => {
                 <p className="text-center text-orange-300">Updated Event will be held for Review</p>
             </section>
             <div className="wrapper my-6 text-center">
-                <EventForm userId={userId} type="update" />
+                <EventForm userId={userId} type="Update" />
             </div>
         </div>
     )

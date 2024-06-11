@@ -8,25 +8,34 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { getCategories } from "./_action";
-
-type CategoryType = {
-    _id: string,
-    title: string
-}
+import { useEffect, useState } from "react";
+import { ICategory } from "@/lib/db/models/category.model";
 
 const ComboBox = ({ onChangeHandler, value }: ComboBoxProps) => {
+    const [categories, setCategories] = useState<ICategory[]>([]);
 
-    const categoryList = getCategories() || [];
+    useEffect(() => {
+        const getsCategories = async () => {
+            const categoryList = await getCategories() || [];
+            console.log(categoryList)
+
+            categoryList && setCategories(categoryList as ICategory[])
+        }
+        
+        getsCategories();
+
+    }, [])
+    
 
     return (
         <div>
             <Select onValueChange={onChangeHandler} defaultValue={value}>
-                <SelectTrigger className="select-field">
-                    <SelectValue placeholder="Category" />
+                <SelectTrigger className="select-field text-orange-500">
+                    <SelectValue className="placeholder:p-regular-14" placeholder="Choose Category..." />
                 </SelectTrigger>
                 <SelectContent>
                     {
-                        categoryList.length > 0 && categoryList.map((category: CategoryType) => (
+                        categories.length > 0 && categories.map((category) => (
                             <SelectItem key={category._id} value={category._id} className="select-item p-regular-14">{category.title}</SelectItem>
                         ))
                     }
