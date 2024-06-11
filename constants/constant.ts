@@ -9,7 +9,7 @@ export const navItems = [
     },
     {
         label: 'Browse Events',
-        route: '/events',
+        route: '/event/browse',
     },
 ]
 

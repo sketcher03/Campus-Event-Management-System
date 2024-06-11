@@ -4,11 +4,11 @@ import { FileUploadProps } from '@/types'
 import { useCallback } from 'react'
 import { FileWithPath } from 'react-dropzone';
 
-// Note: `useUploadThing` is IMPORTED FROM YOUR CODEBASE using the `generateReactHelpers` function
 import { useDropzone } from "@uploadthing/react";
 import { generateClientDropzoneAccept } from "uploadthing/client";
 import { Button } from '../ui/button';
 import { convertFileToUrl } from '@/lib/utils';
+import { MonitorUp } from 'lucide-react';
 
 const FileUploader = (props: FileUploadProps) => {
 
@@ -36,13 +36,13 @@ const FileUploader = (props: FileUploadProps) => {
                             className="w-full object-cover object-center"
                         />
                     </div>
-                ): (
+                ) : (
                     <div className="flex-center flex-col py-5 text-orange-600">
-                        <img src="/assets/icons/upload.svg" width={77} height={77} alt="file upload" />
+                        <MonitorUp className="mr-4 h-[77px] w-[77px] text-orange-400" />
                         <h3 className="mb-2 mt-2">Drag Image here</h3>
-                            <p className="p-medium-12">PNG, JPG</p>
-                            <p className="p-medium-12 mb-4 text-orange-400">Maximum File Size: 4MB</p>
-                        <Button type="button" className="rounded-lg bg-orange-600 hover:bg-orange-700">
+                        <p className="p-medium-12">PNG, JPG</p>
+                        <p className="p-medium-12 mb-4 text-orange-400">Maximum File Size: 4MB</p>
+                        <Button type="button" variant="outline" className="rounded-lg border-2 border-orange-400 hover:bg-orange-500 hover:text-white">
                             Select from computer
                         </Button>
                     </div>

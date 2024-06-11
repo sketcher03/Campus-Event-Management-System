@@ -24,6 +24,9 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useRouter } from "next/navigation"
 import { proposeEvent } from "@/lib/actions/event.actions"
 
+import { Calendar, CalendarRange, CircleDollarSign, Link, MapPin, User } from "lucide-react"
+
+
 const EventForm = ({ userId, type }: EventFormProps) => {
     const router = useRouter();
     const [files, setFiles] = useState<File[]>([]);
@@ -66,7 +69,7 @@ const EventForm = ({ userId, type }: EventFormProps) => {
 
                 if (newEvent) {
                     form.reset();
-                    router.push(`/events/${newEvent._id}`)
+                    router.push(`/event/${newEvent._id}`)
                 };
             } catch (error) {
                 console.log(error);
@@ -142,13 +145,7 @@ const EventForm = ({ userId, type }: EventFormProps) => {
                                 <FormItem className="w-full rounded-lg border-[1px] border-orange-200">
                                     <FormControl>
                                         <div className="flex-center h-[45px] w-full overflow-hidden rounded-lg bg-amber-50 px-4 py-2">
-                                            <Image
-                                                className="mr-4"
-                                                src="/assets/icons/location-gray.svg"
-                                                alt="calendar"
-                                                width={24}
-                                                height={24}
-                                            />
+                                            <MapPin className="mr-4 h-[24px] w-[24px] text-orange-600"  />
                                             <Input placeholder="Enter Venue Details..." {...field} className="input-field focus-visible:ring-0 border-none" />
                                         </div>
 
@@ -170,13 +167,7 @@ const EventForm = ({ userId, type }: EventFormProps) => {
                                 <FormItem className="w-full rounded-lg border-[1px] border-orange-200">
                                     <FormControl>
                                         <div className="flex-center h-[45px] w-full overflow-hidden rounded-lg bg-amber-50 px-4 py-2">
-                                            <Image
-                                                className="mr-4 filter-grey"
-                                                src="/assets/icons/edit.svg"
-                                                alt="calendar"
-                                                width={24}
-                                                height={24}
-                                            />
+                                            <User className="mr-4 h-[24px] w-[24px] text-orange-600" />
                                             <Input placeholder="Enter Host Details..." {...field} className="input-field focus-visible:ring-0 border-none" />
                                         </div>
 
@@ -196,13 +187,7 @@ const EventForm = ({ userId, type }: EventFormProps) => {
                                     <FormItem className="w-full rounded-lg border-[1px] border-orange-200">
                                         <FormControl>
                                             <div className="flex-center h-[45px] w-full overflow-hidden rounded-lg bg-amber-50 px-4 py-2">
-                                                <Image
-                                                    className="filter-grey"
-                                                    src="/assets/icons/calendar.svg"
-                                                    alt="calendar"
-                                                    width={24}
-                                                    height={24}
-                                                />
+                                                <Calendar className="mr-4 h-[42px] w-[42px] text-orange-600" />
                                                 <p className="ml-3 whitespace-nowrap text-orange-400 p-regular-14"> Pick Start Date & Time:</p>
                                                 <DatePicker
                                                     selected={field.value}
@@ -229,13 +214,7 @@ const EventForm = ({ userId, type }: EventFormProps) => {
                                     <FormItem className="w-full rounded-lg border-[1px] border-orange-200">
                                         <FormControl>
                                             <div className="flex-center h-[45px] w-full overflow-hidden rounded-lg bg-amber-50 px-4 py-2">
-                                                <Image
-                                                    className="filter-grey"
-                                                    src="/assets/icons/calendar.svg"
-                                                    alt="calendar"
-                                                    width={24}
-                                                    height={24}
-                                                />
+                                                <CalendarRange className="mr-4 h-[42px] w-[42px] text-orange-600" />
                                                 <p className="ml-3 whitespace-nowrap text-orange-400 p-regular-14"> Pick End Date & Time:</p>
                                                 <DatePicker
                                                     selected={field.value}
@@ -265,13 +244,7 @@ const EventForm = ({ userId, type }: EventFormProps) => {
                                     <FormItem className="w-[720px] rounded-lg border-[1px] border-orange-200">
                                         <FormControl>
                                             <div className="flex-center h-[45px] overflow-hidden rounded-lg bg-amber-50 px-4 py-2">
-                                                <Image
-                                                    className="mr-2 filter-grey"
-                                                    src="/assets/icons/fees.svg"
-                                                    alt="fees"
-                                                    width={20}
-                                                    height={20}
-                                                />
+                                                <CircleDollarSign className="mr-4 h-[22px] w-[22px] text-orange-600" strokeWidth={2} />
 
                                                 <Input type='number' placeholder="Enter Event Fee..." {...field} className="input-field focus-visible:ring-0 border-none" />
                                             </div>
@@ -309,13 +282,7 @@ const EventForm = ({ userId, type }: EventFormProps) => {
                                 <FormLabel>Event URL</FormLabel>
                                 <FormControl>
                                     <div className="flex-center h-[45px] w-full overflow-hidden rounded-lg bg-amber-50 px-4 py-2 border-[1px] border-orange-200">
-                                        <Image
-                                            className="mr-4"
-                                            src="/assets/icons/url.svg"
-                                            alt="url"
-                                            width={24}
-                                            height={24}
-                                        />
+                                        <Link className="mr-4 h-[22px] w-[22px] text-orange-600" strokeWidth={3} />
                                         <Input placeholder="Enter A Valid URL..." {...field} className="input-field focus-visible:ring-0 border-none" />
                                     </div>
                                 </FormControl>

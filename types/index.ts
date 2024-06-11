@@ -1,3 +1,4 @@
+import { IEvent } from '@/lib/db/models/event.model'
 import { Dispatch, SetStateAction } from 'react'
 
 // ====== USER PARAMS
@@ -147,7 +148,7 @@ export type RemoveUrlQueryParams = {
     keysToRemove: string[]
 }
 
-export type SearchParamProps = {
+export type SearchEventParamProps = {
     params: { id: string }
     searchParams: { [key: string]: string | string[] | undefined }
 }
@@ -176,4 +177,15 @@ export type FileUploadProps = {
     onFieldChange: (url: string) => void
     image: string
     setFiles: Dispatch<SetStateAction<File[]>>
+}
+
+export type EventCollectionProps = {
+    data: IEvent[],
+    emptyTitle: string,
+    emptyStateSubtext: string,
+    limit: number,
+    page: number | string,
+    totalPages?: number,
+    urlParamName?: string,
+    collectionType?: 'AllEvents' | 'Organized' | 'Registered' 
 }
