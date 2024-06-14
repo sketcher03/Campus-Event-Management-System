@@ -1,11 +1,21 @@
 import { formatDateAndTime } from '@/lib/utils';
 import { EventCardProps } from '@/types'
 import { auth } from '@clerk/nextjs/server';
-import { FilePenLine } from 'lucide-react';
+import { Ellipsis, FilePenLine } from 'lucide-react';
 import Link from 'next/link';
+
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuGroup,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 import { Separator } from "@/components/ui/separator"
 import { Avatar, AvatarImage } from "@/components/ui/avatar"
+import { DeleteEventDialog } from './DeleteEventDialog';
+import { AlertDialog, AlertDialogTrigger } from '../ui/alert-dialog';
 
 const EventCard = (props: EventCardProps) => {
 
@@ -22,10 +32,28 @@ const EventCard = (props: EventCardProps) => {
 
             {
                 isEventCreator && !props.hidePrice && (
-                    <div className="absolute right-2 top-2 flex flex-col gap-4 rounded-xl bg-orange-100 p-3 shadow-sm transition-all">
-                        <Link href={`/events/${props.event._id}/update`}>
-                            <FilePenLine className='h-[20px] w-[22px] text-orange-400'/>
-                        </Link>
+                    <div className="absolute right-2 top-2 flex flex-col gap-4 rounded-xl p-2 bg-orange-100 shadow-sm transition-all cursor-pointer">
+                        <AlertDialog>
+                            <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                    <Ellipsis className='h-[20px] w-[22px] text-orange-400 p-0' />
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent>
+                                    <DropdownMenuGroup>
+                                        <DropdownMenuItem>
+                                            <Link href={`/event/${props.event._id}/update`}>Update</Link>
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem>
+                                            <AlertDialogTrigger>
+                                                Delete
+                                            </AlertDialogTrigger>
+                                            
+                                        </DropdownMenuItem>
+                                    </DropdownMenuGroup>
+                                </DropdownMenuContent>
+                            </DropdownMenu>
+                            <DeleteEventDialog eventId={props.event._id} />
+                        </AlertDialog>
                     </div>
                 )
             }
@@ -57,7 +85,7 @@ const EventCard = (props: EventCardProps) => {
                 </Link>
 
                 <p className="p-medium-14 text-amber-500">
-                    <span className='font-semibold'>Host:</span> {props.event.host} 
+                    <span className='font-semibold'>Host:</span> {props.event.host}
                 </p>
             </div>
         </div>

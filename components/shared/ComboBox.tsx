@@ -17,7 +17,7 @@ const ComboBox = ({ onChangeHandler, value }: ComboBoxProps) => {
     useEffect(() => {
         const getsCategories = async () => {
             const categoryList = await getCategories() || [];
-            console.log(categoryList)
+            //console.log(categoryList)
 
             categoryList && setCategories(categoryList as ICategory[])
         }

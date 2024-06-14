@@ -28,10 +28,9 @@ export type CreateEventParams = {
         host: string
         dpImage: string
         image: string
-        startDateTime: Date
-        endDateTime: Date
+        startDate: Date
+        endDate: Date
         categoryId: string
-        organizerId: string
         price: string
         isFree: boolean
         url: string
@@ -44,11 +43,13 @@ export type UpdateEventParams = {
     event: {
         _id: string
         title: string
-        imageUrl: string
         description: string
-        location: string
-        startDateTime: Date
-        endDateTime: Date
+        venue: string
+        host: string
+        dpImage: string
+        image: string
+        startDate: Date
+        endDate: Date
         categoryId: string
         price: string
         isFree: boolean
@@ -169,12 +170,14 @@ export type RoleProps = {
 }
 
 export type EventFormProps = {
-    userId: string,
-    type: "Propose" | "Update" 
+    userId: string
+    type: "Propose" | "Update"
+    event?: IEvent
+    eventId?: string
 }
 
 export type ComboBoxProps = {
-    value?: string,
+    value?: string
     onChangeHandler?: () => void
 }
 
@@ -189,26 +192,30 @@ export type FileUploadProps = {
 }
 
 export type EventCollectionProps = {
-    data: IEvent[],
-    emptyTitle: string,
-    emptyStateSubtext: string,
-    limit: number,
-    page: number | string,
-    totalPages?: number,
-    urlParamName?: string,
+    data: IEvent[]
+    emptyTitle: string
+    emptyStateSubtext: string
+    limit: number
+    page: number | string
+    totalPages?: number
+    urlParamName?: string
     collectionType?: 'AllEvents' | 'Organized' | 'Registered' 
 }
 
 export type EventCardProps = {
-    event: IEvent,
+    event: IEvent
     hidePrice?: boolean
 }
 
 export type EventRegistrationProps = {
-    event: IEvent,
+    event: IEvent
 }
 
 export type RegisterProps = {
-    event: IEvent,
+    event: IEvent
     userId: string 
+}
+
+export type UpdateEventProps = {
+    params: { id: string }
 }

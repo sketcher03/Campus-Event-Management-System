@@ -37,7 +37,7 @@ export const deleteCategory = async (categoryId: string) => {
 
         const deleteCategory = await Category.findById(categoryId);
 
-        console.log(categoryId);
+        //console.log(categoryId);
         
         if (!deleteCategory) {
             throw new Error('Category does not exist');

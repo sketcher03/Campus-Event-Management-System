@@ -21,19 +21,26 @@ import { useUploadThing } from "@/lib/uploadthing"
 
 import "react-datepicker/dist/react-datepicker.css";
 import { useRouter } from "next/navigation"
-import { proposeEvent } from "@/lib/actions/event.actions"
+import { proposeEvent, updateEvent } from "@/lib/actions/event.actions"
 
 import { Calendar, CalendarRange, CircleDollarSign, Link, MapPin, User } from "lucide-react"
 import DpUploader from "./DpUploader"
 import CoverUploader from "./CoverUploader"
 
 
-const EventForm = ({ userId, type }: EventFormProps) => {
+const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
     const router = useRouter();
     const [dp, setDp] = useState<File[]>([]);
     const [cover, setCover] = useState<File[]>([]);
 
-    const initialValues = eventInitialValues;
+    const initialValues = (event && type === "Update") ?
+        {
+            ...event,
+            startDate: new Date(event.startDate),
+            endDate: new Date(event.endDate)
+        } : eventInitialValues;
+
+    //console.log(initialValues);
 
     const { startUpload } = useUploadThing('imageUploader');
 
@@ -45,9 +52,10 @@ const EventForm = ({ userId, type }: EventFormProps) => {
 
     // Submit handler
     async function onSubmit(values: z.infer<typeof eventFormSchema>) {
-        
+        //console.log("Here!!!!")
         const eventValues = values;
-        console.log(eventValues, userId);
+        //console.log(eventValues, userId);
+        
 
         let uploadedDpImage = values.dpImage;
         let uploadedCoverImage = values.image;
@@ -88,6 +96,30 @@ const EventForm = ({ userId, type }: EventFormProps) => {
                 console.log(error);
             }
         }
+
+        if (type === "Update") {
+
+            if (!eventId) {
+                router.back()
+                return;
+            }
+
+            try {
+                const updatedEvent = await updateEvent({
+                    userId,
+                    event: { ...values, dpImage: uploadedDpImage, image: uploadedCoverImage, _id: eventId },
+                    path: `/event/${eventId}`
+                })
+
+                if (updatedEvent) {
+                    form.reset();
+                    router.push(`/event/${updatedEvent._id}`)
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        
     }
 
     return (
@@ -208,7 +240,7 @@ const EventForm = ({ userId, type }: EventFormProps) => {
                             <FormLabel className="mb-[-8px]">Event Start Date</FormLabel>
                             <FormField
                                 control={form.control}
-                                name="startDateTime"
+                                name="startDate"
                                 render={({ field }) => (
                                     <FormItem className="w-full rounded-lg border-[1px] border-orange-200">
                                         <FormControl>
@@ -235,7 +267,7 @@ const EventForm = ({ userId, type }: EventFormProps) => {
                             <FormLabel className="mb-[-8px]">Event End Date</FormLabel>
                             <FormField
                                 control={form.control}
-                                name="endDateTime"
+                                name="endDate"
                                 render={({ field }) => (
                                     <FormItem className="w-full rounded-lg border-[1px] border-orange-200">
                                         <FormControl>
