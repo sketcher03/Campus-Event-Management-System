@@ -22,10 +22,14 @@ const CreateCategoryAlertBox = () => {
 
     const router = useRouter();
 
-    const [newCategory, setNewCategory] = useState('');
+    const [newCategoryTitle, setNewCategoryTitle] = useState('');
+    const [newCategoryDescription, setNewCategoryDescription] = useState('');
 
     const handleAddCategory = () => {
-        categoryCreate(newCategory);
+        categoryCreate({
+            title: newCategoryTitle,
+            description: newCategoryDescription
+        });
         router.refresh();
     }
 
@@ -39,7 +43,8 @@ const CreateCategoryAlertBox = () => {
                     <AlertDialogHeader>
                         <AlertDialogTitle>New Category</AlertDialogTitle>
                         <AlertDialogDescription>
-                            <Input type="text" placeholder="Category name" className="input-field mt-3" onChange={(e) => setNewCategory(e.target.value)} />
+                            <Input type="text" placeholder="Category name" className="input-field mt-3" onChange={(e) => setNewCategoryTitle(e.target.value)} />
+                            <Input type="text" placeholder="Category Description" className="input-field mt-1" onChange={(e) => setNewCategoryDescription(e.target.value)} />
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>

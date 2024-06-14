@@ -1,12 +1,14 @@
 import { redirect } from "next/navigation";
-import { checkRole } from "@/utils/roles";
+import { sendRole } from "@/utils/roles";
 import { auth } from "@clerk/nextjs/server";
 import EventForm from "@/components/shared/EventForm";
 
-const ProposeEvent = () => {
+const ProposeEvent = async () => {
 
-    // Redirect them to the home page if user is not faculty, admin or organizer
-    if (!checkRole("admin") && !checkRole("organizer") && !checkRole("faculty")) {
+    const role = await sendRole();
+
+    // If the user does not have the admin role, redirect them to the home page
+    if (role !== "admin" && role !== "organizer" && role !== "faculty") {
         redirect("/");
     }
 

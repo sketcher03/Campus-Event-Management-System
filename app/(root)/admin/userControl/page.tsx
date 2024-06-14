@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { checkRole } from "@/utils/roles";
+import {sendRole } from "@/utils/roles";
 import { SearchUsers } from "./_search-users";
 import { clerkClient } from "@clerk/nextjs/server";
 
@@ -12,8 +12,10 @@ export default async function UserControl(params: {
     searchParams: { search?: string };
 }) {
 
+    const role = await sendRole();
+
     // If the user does not have the admin role, redirect them to the home page
-    if (!checkRole("admin")) {
+    if (role !== "admin") {
         redirect("/");
     }
 
