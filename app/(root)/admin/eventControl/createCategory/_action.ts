@@ -1,6 +1,6 @@
 "use server";
 
-import { createCategory } from "@/lib/actions/category.actions";
+import { createCategory, deleteCategory } from "@/lib/actions/category.actions";
 import { getAllCategories } from "@/lib/actions/category.actions";
 import { CreateCategoryParams } from "@/types";
 
@@ -19,4 +19,9 @@ export async function getCategories() {
         const categoryList = await getAllCategories();
         
         return categoryList;
+}
+
+export async function categoryDelete(categoryId: string) {
+
+        deleteCategory(categoryId);
 }

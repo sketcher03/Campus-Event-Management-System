@@ -6,13 +6,23 @@ import { getCategories } from "./_action";
 import {
     Table,
     TableBody,
-    TableCaption,
     TableCell,
-    TableFooter,
     TableHead,
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuGroup,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+
+import { Button } from "@/components/ui/button";
+import { Ellipsis } from "lucide-react";
+import DeleteButton from "./_button";
 
 type CategoryType = {
     _id: string
@@ -20,7 +30,7 @@ type CategoryType = {
     description: string
 }
 
-export default async function CreateCategory () {
+export default async function CreateCategory() {
 
     const role = await sendRole();
 
@@ -31,20 +41,55 @@ export default async function CreateCategory () {
 
     const categoryList = await getCategories() || [];
 
+    
+
     return (
         <>
             <section className='bg-orange-50 py-32 mt-5'>
                 <div className="wrapper flex flex-col items-center">
                     <CreateCategoryAlertBox />
 
+                    <div className="flex flex-col items-center">
+                        <h4 className="py-4 mt-4 font-semibold text-sm text-orange-500">Current List of Categories</h4>
+                        <Table className="w-[600px] max-w-[750px] pt-4 border-y-2 border-orange-200 rounded-xl">
+                            <TableHeader className="h-[60px]">
+                                <TableRow>
+                                    <TableHead className="text-orange-600">Title</TableHead>
+                                    <TableHead className="text-orange-600">Description</TableHead>
+                                    <TableHead className="text-orange-600">Options</TableHead>
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                {
+                                    categoryList.length > 0 && categoryList.map((category: CategoryType) => (
+                                        <TableRow key={category._id}>
+                                            <TableCell>{category.title}</TableCell>
+                                            <TableCell className="overflow-hidden">{category.description}</TableCell>
+                                            <TableCell>
+                                                <DropdownMenu>
+                                                    <DropdownMenuTrigger asChild>
+                                                        <Button size="sm" className="bg-transparent text-orange-600 border-2 p-1 border-orange-200 hover:border-orange-300 hover:bg-transparent"><Ellipsis /></Button>
+                                                    </DropdownMenuTrigger>
+                                                    <DropdownMenuContent>
+                                                        <DropdownMenuGroup>
+                                                            <DropdownMenuItem>
+                                                                <DeleteButton categoryId={category._id} />
+                                                            </DropdownMenuItem>
+                                                        </DropdownMenuGroup>
+                                                    </DropdownMenuContent>
+                                                </DropdownMenu>
+                                            </TableCell>
+                                        </TableRow>
+                                    ))
+                                }
+
+                            </TableBody>
+                        </Table>
+                    </div>
                     
 
-                    {
-                        categoryList.length > 0 && categoryList.map((category: CategoryType) => (
-                            <p key={category._id} className="select-item p-regular-14">{category.title}</p>
-                        ))
-                    }
-                    
+
+
                 </div>
             </section>
         </>

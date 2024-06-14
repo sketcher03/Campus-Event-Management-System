@@ -178,6 +178,10 @@ export type ComboBoxProps = {
     onChangeHandler?: () => void
 }
 
+export type DeleteCategoryProps = {
+    categoryId: string
+}
+
 export type FileUploadProps = {
     onFieldChange: (url: string) => void
     image: string

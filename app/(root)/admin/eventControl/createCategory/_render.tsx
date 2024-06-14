@@ -50,7 +50,7 @@ const CreateCategoryAlertBox = () => {
                     <AlertDialogFooter>
                         <AlertDialogCancel>Cancel</AlertDialogCancel>
 
-                        <AlertDialogAction onClick={handleAddCategory}>Add</AlertDialogAction>
+                        <AlertDialogAction className='bg-orange-500 hover:bg-orange-600' onClick={handleAddCategory}>Add</AlertDialogAction>
                     </AlertDialogFooter>
                 </AlertDialogContent>
             </AlertDialog>

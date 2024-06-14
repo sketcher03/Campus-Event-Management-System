@@ -12,7 +12,7 @@ const EventCard = (props: EventCardProps) => {
     const { sessionClaims } = auth();
     const userId = sessionClaims?.metadata.userId as string;
 
-    //console.log(props.event.organizer);
+    //console.log(props.event.category);
 
     const isEventCreator = userId === props.event.organizer._id;
 

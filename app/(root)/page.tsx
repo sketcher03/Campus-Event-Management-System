@@ -25,7 +25,7 @@ export default function Home() {
             <h1 className="h1-bold">Your Dashboard</h1>
             <p className="p-regular-24">Under Construction</p>
             <Button size="lg" asChild className="button w-fit mt-6 bg-orange-500 hover:bg-orange-700">
-              <Link href="/events">
+              <Link href="/event/browse">
                 View Events
               </Link>
             </Button>
