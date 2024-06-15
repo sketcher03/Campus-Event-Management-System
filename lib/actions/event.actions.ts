@@ -1,6 +1,6 @@
 'use server'
 
-import { CreateEventParams, DeleteEventParams, GetAllEventsParams, UpdateEventParams } from "@/types"
+import { ApproveEventParams, CreateEventParams, DeleteEventParams, GetAllEventsParams, UpdateEventParams } from "@/types"
 import { handleError } from "../utils"
 import { connectToDb } from "../db"
 import User from "../db/models/user.model"
@@ -88,6 +88,64 @@ export async function deleteEvent({ eventId, path }: DeleteEventParams) {
         if (deletedEvent) {
             revalidatePath(path)
         }
+
+    } catch (error) {
+        handleError(error)
+    }
+}
+
+export async function approveEvent({ eventId, path }: ApproveEventParams) {
+    try {
+        await connectToDb()
+
+        const approveEvent = await Event.findById(eventId);
+
+        //console.log(approveEvent);
+
+        if (!approveEvent) {
+            throw new Error('Event does not exist');
+        }
+
+        const approvedEvent = await Event.findByIdAndUpdate(
+            eventId,
+            { status: 'live' },
+            { new: true }
+        )
+
+        //console.log(approvedEvent.status)
+
+        revalidatePath(path)
+
+        return JSON.parse(JSON.stringify(approvedEvent))
+
+    } catch (error) {
+        handleError(error)
+    }
+}
+
+export async function archiveEvent({ eventId, path }: ApproveEventParams) {
+    try {
+        await connectToDb()
+
+        const approveEvent = await Event.findById(eventId);
+
+        //console.log(approveEvent);
+
+        if (!approveEvent) {
+            throw new Error('Event does not exist');
+        }
+
+        const approvedEvent = await Event.findByIdAndUpdate(
+            eventId,
+            { status: 'archived' },
+            { new: true }
+        )
+
+        //console.log(approvedEvent.status)
+
+        revalidatePath(path)
+
+        return JSON.parse(JSON.stringify(approvedEvent))
 
     } catch (error) {
         handleError(error)

@@ -1,7 +1,7 @@
 import { formatDateAndTime } from '@/lib/utils';
 import { EventCardProps } from '@/types'
 import { auth } from '@clerk/nextjs/server';
-import { Ellipsis, FilePenLine } from 'lucide-react';
+import { Ellipsis } from 'lucide-react';
 import Link from 'next/link';
 
 import {
@@ -47,7 +47,6 @@ const EventCard = (props: EventCardProps) => {
                                             <AlertDialogTrigger>
                                                 Delete
                                             </AlertDialogTrigger>
-                                            
                                         </DropdownMenuItem>
                                     </DropdownMenuGroup>
                                 </DropdownMenuContent>

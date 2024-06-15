@@ -63,6 +63,11 @@ export type DeleteEventParams = {
     path: string
 }
 
+export type ApproveEventParams = {
+    eventId: string
+    path: string
+}
+
 export type GetAllEventsParams = {
     query: string
     category: string
@@ -218,4 +223,8 @@ export type RegisterProps = {
 
 export type UpdateEventProps = {
     params: { id: string }
+}
+
+export type AdminEventProps = {
+    eventId: string
 }

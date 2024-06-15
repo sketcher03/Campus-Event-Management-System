@@ -29,8 +29,8 @@ export default async function EventControl() {
                         </Link>
                     </Button>
                     <Button size="lg" className="w-fit mt-2 bg-transparent text-orange-700 border-2 border-orange-500 hover:bg-orange-100 hover:text-orange-800">
-                        <Link href="/admin/eventControl/createCategory">
-                            Create Category
+                        <Link href="/admin/eventControl/manage-categories">
+                            Manage Categories
                         </Link>
                     </Button>
                 </div>

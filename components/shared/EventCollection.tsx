@@ -31,7 +31,10 @@ const EventCollection = ({
                                     <li key={event._id} className="flex justify-center">
                                         
                                         {/*Card component rendered here*/}
-                                        <EventCard event={event} hidePrice={hidePrice} />
+                                        {
+                                            event.status === "live" && <EventCard event={event} hidePrice={hidePrice} />
+                                        }
+                                        
                                         
                                     </li>
                                 )

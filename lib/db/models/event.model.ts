@@ -13,6 +13,7 @@ export interface IEvent extends Document {
     endDate: Date;
     price: string;
     isFree: boolean;
+    status: string;
     url?: string;
     category: { _id: string, title: string };
     organizer: { _id: string, firstName: string, lastName: string, username: string, photo: string };
@@ -30,6 +31,7 @@ const EventSchema = new Schema({
     endDate: { type: Date, default: Date.now },
     price: { type: String },
     isFree: { type: Boolean, default: false },
+    status: { type: String, default: "pending"},
     url: { type: String },
     category: { type: Schema.Types.ObjectId, ref: 'Category' },
     organizer: { type: Schema.Types.ObjectId, ref: 'User' },
