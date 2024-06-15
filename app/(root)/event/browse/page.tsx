@@ -1,10 +1,10 @@
 import EventCollection from '@/components/shared/EventCollection'
-import { getAllEvents } from '@/lib/actions/event.actions'
+import { getAllLiveEvents } from '@/lib/actions/event.actions'
 import React from 'react'
 
 export default async function BrowseEvents() {
     
-    const events = await getAllEvents({
+    const events = await getAllLiveEvents({
         query: '',
         limit: 6,
         page: 1,

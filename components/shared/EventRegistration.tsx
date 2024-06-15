@@ -18,14 +18,14 @@ const EventRegistration = (props: EventRegistrationProps) => {
             {
                 isEventOver ? (
                     <div>
-                        <p className="p-2 text-orange-400">Registration is Now Closed. Stay Tuned for more!</p>
+                        <p className="p-2 text-orange-400 font-semibold">Registration is Now Closed. Stay Tuned for more!</p>
                     </div>
                 ) : (
                     <div>
                         <SignedOut>
                             <Button asChild className="button rounded-lg" size="lg">
-                                <Link href="/sign-in">
-                                    Get Tickets
+                                <Link className="font-semibold" href="/sign-in">
+                                    Login to Register
                                 </Link>
                             </Button>
                         </SignedOut>

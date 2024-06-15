@@ -1,6 +1,6 @@
 'use server'
 
-import { ApproveEventParams, CreateEventParams, DeleteEventParams, GetAllEventsParams, UpdateEventParams } from "@/types"
+import { ApproveEventParams, CreateEventParams, DeleteEventParams, GetAllEventsParams, GetEventsByUserParams, GetRelatedEventsByCategoryParams, UpdateEventParams } from "@/types"
 import { handleError } from "../utils"
 import { connectToDb } from "../db"
 import User from "../db/models/user.model"
@@ -174,6 +174,84 @@ export async function updateEvent({ event, userId, path }: UpdateEventParams) {
 
         return JSON.parse(JSON.stringify(updatedEvent))
 
+    } catch (error) {
+        handleError(error)
+    }
+}
+
+export const getAllLiveEvents = async ({ query, limit = 6, page, category }: GetAllEventsParams) => {
+    try {
+        await connectToDb();
+
+        const conditions = { status: "live" };
+
+        const events = await populateEvent(Event.find(conditions)
+            .sort({ createdAt: "desc" })
+            .skip(0)
+            .limit(limit));
+
+        const count = await Event.countDocuments(conditions)
+
+        return {
+            data: JSON.parse(JSON.stringify(events)),
+            totalPages: Math.ceil(count / limit)
+        };
+
+    } catch (error) {
+        console.log(error)
+        handleError(error);
+    }
+}
+
+export const getEventsByUser = async ({ userId, limit = 6, page }: GetEventsByUserParams) => {
+    try {
+        await connectToDb();
+
+        //console.log(userId)
+
+        const conditions = { organizer: userId };
+
+        const events = await populateEvent(Event.find(conditions)
+            .sort({ createdAt: "desc" })
+            .skip(0)
+            .limit(limit));
+        
+        //console.log(events)
+
+        const count = await Event.countDocuments(conditions)
+
+        return {
+            data: JSON.parse(JSON.stringify(events)),
+            totalPages: Math.ceil(count / limit)
+        };
+
+    } catch (error) {
+        console.log(error)
+        handleError(error);
+    }
+}
+
+export async function getRelatedEventsByCategory({
+    categoryId,
+    eventId,
+    limit = 3,
+    page = 1,
+}: GetRelatedEventsByCategoryParams) {
+    try {
+        await connectToDb()
+
+        const skipAmount = (Number(page) - 1) * limit
+        const conditions = { $and: [{ category: categoryId }, { _id: { $ne: eventId } }] }
+
+        const eventsQuery = Event.find(conditions)
+            .sort({ createdAt: 'desc' })
+            .skip(skipAmount)
+            .limit(limit)
+
+        const events = await populateEvent(eventsQuery)
+        const eventsCount = await Event.countDocuments(conditions)
+
+        return { data: JSON.parse(JSON.stringify(events)), totalPages: Math.ceil(eventsCount / limit) }
     } catch (error) {
         handleError(error)
     }

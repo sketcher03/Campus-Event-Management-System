@@ -16,13 +16,15 @@ import { Separator } from "@/components/ui/separator"
 import { Avatar, AvatarImage } from "@/components/ui/avatar"
 import { DeleteEventDialog } from './DeleteEventDialog';
 import { AlertDialog, AlertDialogTrigger } from '../ui/alert-dialog';
+import { Badge } from '../ui/badge';
 
 const EventCard = (props: EventCardProps) => {
 
     const { sessionClaims } = auth();
     const userId = sessionClaims?.metadata.userId as string;
+    //const role = sessionClaims?.metadata.role as string;
 
-    //console.log(props.event.category);
+    //console.log(role);
 
     const isEventCreator = userId === props.event.organizer._id;
 
@@ -32,38 +34,43 @@ const EventCard = (props: EventCardProps) => {
 
             {
                 isEventCreator && !props.hidePrice && (
-                    <div className="absolute right-2 top-2 flex flex-col gap-4 rounded-xl p-2 bg-orange-100 shadow-sm transition-all cursor-pointer">
-                        <AlertDialog>
-                            <DropdownMenu>
-                                <DropdownMenuTrigger asChild>
-                                    <Ellipsis className='h-[20px] w-[22px] text-orange-400 p-0' />
-                                </DropdownMenuTrigger>
-                                <DropdownMenuContent>
-                                    <DropdownMenuGroup>
-                                        <DropdownMenuItem>
-                                            <Link href={`/event/${props.event._id}/update`}>Update</Link>
-                                        </DropdownMenuItem>
-                                        <DropdownMenuItem>
-                                            <AlertDialogTrigger>
-                                                Delete
-                                            </AlertDialogTrigger>
-                                        </DropdownMenuItem>
-                                    </DropdownMenuGroup>
-                                </DropdownMenuContent>
-                            </DropdownMenu>
-                            <DeleteEventDialog eventId={props.event._id} />
-                        </AlertDialog>
-                    </div>
+                    <>
+                        <Badge variant="destructive" className={props.event.status === "live" ? `absolute left-4 top-4 bg-green-600 hover:bg-green-700 capitalize py-1` : `absolute left-4 top-4 bg-orange-500 hover:bg-orange-600 capitalize`}>{props.event.status}</Badge>
+
+                        <div className="absolute right-2 top-2 flex flex-col gap-4 rounded-xl p-2 bg-orange-100 shadow-sm transition-all cursor-pointer">
+                            <AlertDialog>
+                                <DropdownMenu>
+                                    <DropdownMenuTrigger asChild>
+                                        <Ellipsis className='h-[20px] w-[22px] text-orange-400 p-0' />
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent>
+                                        <DropdownMenuGroup>
+                                            <DropdownMenuItem>
+                                                <Link href={`/event/${props.event._id}/update`}>Update</Link>
+                                            </DropdownMenuItem>
+                                            <DropdownMenuItem>
+                                                <AlertDialogTrigger>
+                                                    Delete
+                                                </AlertDialogTrigger>
+                                            </DropdownMenuItem>
+                                        </DropdownMenuGroup>
+                                    </DropdownMenuContent>
+                                </DropdownMenu>
+                                <DeleteEventDialog eventId={props.event._id} />
+                            </AlertDialog>
+                        </div>
+                    </>
                 )
             }
 
-            <div className="absolute right-2 top-[180px] flex flex-col gap-4 mr-3 rounded-full shadow-lg transition-all">
-                <Avatar className="h-[96px] w-[96px]">
+            <div className="absolute left-5 top-[140px] flex flex-col gap-4 mr-3 rounded-full shadow-xl transition-all">
+                <Avatar className="h-[78px] w-[78px]">
                     <AvatarImage src={props.event.dpImage} />
                 </Avatar>
             </div>
 
             <div className="flex min-h-[200px] flex-col gap-3 p-5">
+                
                 {
                     !props.hidePrice && (
                         <div className="flex gap-2">

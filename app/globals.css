@@ -238,6 +238,16 @@ body {
   height: 38px;
 }
 
+.cl-cardBox,
+.cl-scrollBox {
+  box-shadow: none;
+  background: #ffffff;
+}
+
+.cl-navbar {
+  background: #fff7ed;
+}
+
 .cl-userButtonBox {
   flex-direction: row-reverse;
 }

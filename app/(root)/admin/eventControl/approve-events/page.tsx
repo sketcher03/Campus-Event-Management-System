@@ -75,7 +75,7 @@ export default async function ApproveEvents() {
                                     <TableCell className='text-orange-600 font-semibold underline'><Link href={`/event/${event._id}`}>{event.title}</Link></TableCell>
                                     <TableCell className="overflow-hidden">{formatDateAndTime(event.createdAt).dateOnly}</TableCell>
                                     <TableCell className="overflow-hidden">{formatDateAndTime(event.createdAt).dateOnly}</TableCell>
-                                    <TableCell className='capitalize'><Badge variant="destructive" className={event.status === "live" ? `bg-green-600 hover:bg-green-700` : `bg-red-500 hover:bg-red-600`}>{event.status}</Badge></TableCell>
+                                    <TableCell className='capitalize'><Badge variant="destructive" className={event.status === "live" ? `bg-green-600 hover:bg-green-700` : `bg-orange-500 hover:bg-orange-600`}>{event.status}</Badge></TableCell>
                                     <TableCell className="overflow-hidden">{event.organizer.username}</TableCell>
                                     <TableCell>
                                         <AdminEventsDialogs eventId={event._id} />
