@@ -18,7 +18,7 @@ const EventRegistration = (props: EventRegistrationProps) => {
             {
                 isEventOver ? (
                     <div>
-                        <p className="p-2 text-orange-400 font-semibold">Registration is Now Closed. Stay Tuned for more!</p>
+                        <p className="p-2 text-orange-400 font-semibold text-xl">Registration is Now Closed. <br/> Stay Tuned for more!</p>
                     </div>
                 ) : (
                     <div>

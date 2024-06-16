@@ -5,17 +5,27 @@ import Image from "next/image";
 import { Separator } from "@/components/ui/separator"
 import { Avatar, AvatarImage } from "@/components/ui/avatar"
 import { formatDateAndTime } from "@/lib/utils";
-import { Calendar, Link, MapPin } from "lucide-react";
+import { Calendar, Heart, Link, MapPin } from "lucide-react";
 import EventRegistration from "@/components/shared/EventRegistration";
 import EventCollection from "@/components/shared/EventCollection";
 import { Badge } from "@/components/ui/badge";
 import { CountdownTimer } from "@/components/shared/CountDownTimer";
+import DisqusComments from "@/components/shared/DisqusComments";
+import { auth } from "@clerk/nextjs/server";
+import { Button } from "@/components/ui/button";
+import AddToWishlist from "@/components/shared/AddToWishlist";
+import { getUserById } from "@/lib/actions/user.actions";
 
 const timerLabels = ['days', 'hours', 'minutes', 'seconds']
 
 const SingleEvent = async ({ params: { id }, searchParams }: SearchEventParamProps) => {
+
+    const { sessionClaims } = auth();
+
+    const userId = sessionClaims?.metadata.userId as string;
     
     const event = await getEvent(id);
+    const user = await getUserById(userId);
 
     const relatedEvents = await getRelatedEventsByCategory({
         categoryId: event.category._id,
@@ -23,12 +33,16 @@ const SingleEvent = async ({ params: { id }, searchParams }: SearchEventParamPro
         page: searchParams.page as string,
     })
 
+    const isEventOver = new Date(event.endDate) < new Date();
+
     return (
         <div className="px-48 py-4">
             <Separator className='bg-orange-100 mb-4 h-[2px]' />
 
             <section className="flex justify-center pt-6">
+                
                 <div className="grid grid-cols-1 max-w-7xl">
+                    
                     <Image
                         src={event.image}
                         alt="event cover image"
@@ -37,7 +51,8 @@ const SingleEvent = async ({ params: { id }, searchParams }: SearchEventParamPro
                         className="h-[480px] min-h-[300px] w-[1280px] object-cover object-center rounded-xl"
                     />
                 
-                    <div className="grid grid-cols-4 pt-16 pl-12 items-center">
+                    <div className="group relative grid grid-cols-4 pt-16 pl-12 items-center">
+                        <AddToWishlist eventId={event._id} userId={userId} />
                         <div className="max-w-[240px]">
                             <Avatar className="h-[240px] w-[240px]">
                                 <AvatarImage src={event.dpImage} />
@@ -73,18 +88,23 @@ const SingleEvent = async ({ params: { id }, searchParams }: SearchEventParamPro
                             <div className='flex gap-4'>
                                 <Calendar className="mr-1 h-[54px] w-[54px] text-orange-600" />
                                 <div className="p-semibold-18 flex flex-wrap items-center text-orange-500">
-                                    <p>
+                                    <div>
                                         <span className="text-orange-300">From:</span>
                                         <Separator className='bg-orange-200 my-1 h-[2px] w-[100px]' />
-                                        {formatDateAndTime(event.startDate).dateOnly} <br/> {' '}
-                                        {formatDateAndTime(event.startDate).timeOnly}
-                                    </p>
-                                    <p className="mt-4">
+                                        <p>
+                                            {formatDateAndTime(event.startDate).dateOnly} <br /> {' '}
+                                            {formatDateAndTime(event.startDate).timeOnly}
+                                        </p>
+                                    </div>
+                                    <div>
                                         <span className="text-orange-300">To:</span>
                                         <Separator className='bg-orange-200 my-1 h-[2px] w-[100px]' />
-                                        {formatDateAndTime(event.endDate).dateOnly} <br/> {' '}
-                                        {formatDateAndTime(event.endDate).timeOnly}
-                                    </p>
+                                        <p className="mt-4">
+                                            {formatDateAndTime(event.endDate).dateOnly} <br /> {' '}
+                                            {formatDateAndTime(event.endDate).timeOnly}
+                                        </p>
+                                    </div>
+                                    
                                 </div>
                             </div>
                             <div className="p-regular-20 flex items-center gap-3 mt-4">
@@ -121,6 +141,11 @@ const SingleEvent = async ({ params: { id }, searchParams }: SearchEventParamPro
             <section className="flex justify-center mt-16 bg-amber-100 rounded-xl py-8">
                 <EventRegistration event={event} />
             </section>
+
+            <div className="mt-10 wrapper items-center max-w-[1000px]">
+                <DisqusComments event={event} />
+            </div>
+            
 
             <section className="wrapper my-8 flex flex-col gap-12">
                 <h2 className="text-2xl font-bold text-orange-600 text-center mb-[-40px]">Similar Events</h2>

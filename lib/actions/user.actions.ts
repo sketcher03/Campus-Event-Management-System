@@ -1,10 +1,11 @@
 'use server'
 
-import { CreateUserParams, UpdateUserParams } from "@/types"
+import { AddToWishlistParams, CreateUserParams, UpdateUserParams } from "@/types"
 import { handleError } from "../utils"
 import { connectToDb } from "../db/index"
 import User from "../db/models/user.model"
 import { revalidatePath } from "next/cache"
+import Event from "../db/models/event.model"
 
 export const createUser = async (user: CreateUserParams) => {
     try {
@@ -22,7 +23,7 @@ export const updateUser = async (user: UpdateUserParams, clerkId: string) => {
     try {
         await connectToDb();
 
-        const updatedUser = await User.findOneAndUpdate({ clerkId }, user, { new: true });
+        const updatedUser = await User.findOneAndUpdate({ clerkId }, user);
         
         if (!updatedUser) {
             throw new Error('User Information could not be updated');
@@ -49,6 +50,49 @@ export const deleteUser = async (clerkId: string) => {
         revalidatePath('/');
 
         return deletedUser ? JSON.parse(JSON.stringify(deletedUser)) : null;
+    } catch (error) {
+        handleError(error);
+    }
+}
+
+export const addToWishlist = async ({ userId, eventId, path }: AddToWishlistParams) => {
+    try {
+        await connectToDb();
+
+        const user = await User.findById(userId);
+        const wishlistEvent = await Event.findById(eventId);
+
+        if (!user || !wishlistEvent) {
+            throw new Error('User or Event does not exist');
+        }
+
+        if (user.wishlist.includes(eventId)) {
+            throw new Error('Event already in wishlist');
+        }
+
+        user.wishlist.push(eventId);
+        await user.save();
+
+        revalidatePath(path)
+
+        return JSON.parse(JSON.stringify(user.wishlist));
+        
+    } catch (error) {
+        handleError(error);
+    }
+}
+
+export const getUserById = async (userId: string) => {
+    try {
+        await connectToDb();
+
+        const targetUser = await User.findById(userId);
+
+        if (!targetUser) {
+            throw new Error('User does not exist');
+        }
+
+        return JSON.parse(JSON.stringify(targetUser));
     } catch (error) {
         handleError(error);
     }

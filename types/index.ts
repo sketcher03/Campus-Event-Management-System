@@ -18,6 +18,10 @@ export type UpdateUserParams = {
     photo: string
 }
 
+export type GetUserByIdParams = {
+    clerkId: string
+}
+
 // ====== EVENT PARAMS
 export type CreateEventParams = {
     userId: string
@@ -209,6 +213,10 @@ export type EventRegistrationProps = {
     event: IEvent
 }
 
+export type DisqusSectionProps = {
+    event: IEvent
+}
+
 export type RegisterProps = {
     event: IEvent
     userId: string 
@@ -220,4 +228,15 @@ export type UpdateEventProps = {
 
 export type AdminEventProps = {
     eventId: string
+}
+
+export type AddToWishlistParams = {
+    eventId: string
+    userId: string
+    path: string
+}
+
+export type AddToWishlistProps = {
+    eventId: string
+    userId: string
 }
