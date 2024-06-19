@@ -35,6 +35,12 @@ const EventSchema = new Schema({
     url: { type: String },
     category: { type: Schema.Types.ObjectId, ref: 'Category' },
     organizer: { type: Schema.Types.ObjectId, ref: 'User' },
+    ratings: [{
+        user: { type: Schema.Types.ObjectId, ref: 'User' },
+        rating: { type: Number, min: 1, max: 5, required: true },
+        review: { type: String, required: true },
+        createdAt: { type: Date, default: Date.now }
+    }]
 })
 
 const Event = models.Event || model('Event', EventSchema);

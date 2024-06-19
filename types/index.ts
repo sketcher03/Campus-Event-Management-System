@@ -240,3 +240,10 @@ export type AddToWishlistProps = {
     eventId: string
     userId: string
 }
+
+export type CreateReviewParams = {
+    userId: string
+    eventId: string
+    rating: number
+    review: string
+}

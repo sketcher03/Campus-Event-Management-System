@@ -19,7 +19,7 @@ const calculateTimeLeft = (targetDate: Date) => {
         ]
         :
         [0, 0, 0, 0] // zeros instead of undefined or null
-    
+
 }
 
 export const CountdownTimer = ({ targetDate, labels }: CountdownTimerProps) => {
@@ -46,21 +46,18 @@ export const CountdownTimer = ({ targetDate, labels }: CountdownTimerProps) => {
     if (!hasMounted) return <div>Loading....</div> // Display a loading message if the component has not yet mounted.
 
     return (
-        <div className="max-w-[500px]">
-            <div className="grid grid-cols-4 gap-40">
-                {timeLeft.map((num, index) => (
-                    <div key={index} className="relative grid grid-cols-1 place-content-center justify-center items-center gap-8">
-                        <div className="flex flex-col items-center">
-                            <div className="relative overflow-hidden">
-                                <span className="text-8xl font-bold text-orange-600 rounded-lg p-[10px]">{String(num).padStart(2, '0')}</span>
-                            </div>
-                            <p className="capitalize text-xl font-bold text-orange-800">{labels[index]}</p>
+        <div className="grid grid-cols-4 gap-40">
+            {timeLeft.map((num, index) => (
+                <div key={index} className="relative grid grid-cols-1 place-content-center justify-center items-center gap-8">
+                    <div className="flex flex-col items-center">
+                        <div className="relative overflow-hidden">
+                            <span className="text-8xl font-bold text-orange-600 rounded-lg p-[10px]">{String(num).padStart(2, '0')}</span>
                         </div>
+                        <p className="capitalize text-xl font-bold text-orange-800">{labels[index]}</p>
                     </div>
-                ))}
-            </div>
-            <p className="text-center text-lg mt-4 font-semibold text-orange-400">Till Event Starts</p>
+                </div>
+            ))}
         </div>
-        
+
     )
 }

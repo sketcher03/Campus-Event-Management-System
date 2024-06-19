@@ -39,6 +39,8 @@ const SingleEvent = async ({ params: { id }, searchParams }: SearchEventParamPro
     const isEventCreator = userId === event.organizer._id;
 
     const isAddedToWishlist = user.wishlist.includes(id);
+    const hasEventStarted = new Date(event.startDate) < new Date();
+
     const isEventOver = new Date(event.endDate) < new Date();
 
     return (
@@ -162,11 +164,21 @@ const SingleEvent = async ({ params: { id }, searchParams }: SearchEventParamPro
                         )
                     }
                 </div>
-                <CountdownTimer targetDate={event.endDate} labels={timerLabels} />
+                {
+                    !hasEventStarted ? (
+                        <div className="max-w-[500px]">
+                            <CountdownTimer targetDate={event.startDate} labels={timerLabels} />
+                            <p className="text-center text-lg mt-4 font-semibold text-orange-400">Till Event Starts</p>
+                        </div>
+                    ) : (
+                        <div className="max-w-[500px]">
+                            <CountdownTimer targetDate={event.endDate} labels={timerLabels} />
+                            <p className="text-center text-lg mt-4 font-semibold text-orange-400">Till Event Ends</p>
+                        </div>
+                    )
+                }
+
             </div>
-
-            
-
 
             <section className="flex justify-center mt-16 bg-amber-100 rounded-xl py-8">
                 <EventRegistration event={event} />

@@ -11,12 +11,12 @@ const EventRegistration = (props: EventRegistrationProps) => {
     const { user } = useUser();
 
     const userId = user?.publicMetadata.userId as string;
-    const isEventOver = new Date(props.event.endDate) < new Date();
+    const isEventRegistrationOver = new Date(props.event.startDate) < new Date();
 
     return (
         <div className="flex gap-2 items-center">
             {
-                isEventOver ? (
+                isEventRegistrationOver ? (
                     <div>
                         <p className="p-2 text-orange-500 font-semibold text-xl text-center">Registration is Now Closed. <br /> <span className="text-orange-400 font-medium text-base">Stay Tuned for more!</span></p>
                     </div>

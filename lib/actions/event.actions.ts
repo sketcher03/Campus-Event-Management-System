@@ -1,6 +1,6 @@
 'use server'
 
-import { ApproveEventParams, CreateEventParams, DeleteEventParams, GetAllEventsParams, GetEventsByUserParams, GetRelatedEventsByCategoryParams, UpdateEventParams } from "@/types"
+import { ApproveEventParams, CreateEventParams, CreateReviewParams, DeleteEventParams, GetAllEventsParams, GetEventsByUserParams, GetRelatedEventsByCategoryParams, UpdateEventParams } from "@/types"
 import { handleError } from "../utils"
 import { connectToDb } from "../db"
 import User from "../db/models/user.model"
@@ -279,5 +279,41 @@ export async function getRelatedEventsByCategory({
         return { data: JSON.parse(JSON.stringify(events)), totalPages: Math.ceil(eventsCount / limit) }
     } catch (error) {
         handleError(error)
+    }
+}
+
+export async function createReview({ eventId, userId, rating, review }: CreateReviewParams) {
+    try {
+
+        const user = await User.findById(userId);
+        const event = await Event.findById(eventId);
+
+        if (!user || !event) {
+            throw new Error('User or Event not found');
+        }
+
+        event.ratings.push({ user: userId, rating, review });
+        await event.save();
+
+        return JSON.parse(JSON.stringify(event))
+        
+    } catch (error) {
+        handleError(error);
+    }
+}
+
+export async function getReviews( eventId: string ) {
+    try {
+
+        const event = await Event.findById(eventId).populate('ratings.user', 'username photo');
+
+        if (!event) {
+            throw new Error('Event not found');
+        }
+
+        return JSON.parse(JSON.stringify(event))
+
+    } catch (error) {
+        handleError(error);
     }
 }
