@@ -23,7 +23,7 @@ const Profile = async ({ searchParams }: SearchEventParamProps) => {
     const registeredEvents = registrations?.data.map((registration: IRegistration) => registration.event) || [];
     const organizedEvents = await getEventsByUser({ userId, page: eventsPage })
 
-    //console.log(organizedEvents);
+    console.log(registeredEvents);
 
     return (
         <>

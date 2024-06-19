@@ -7,6 +7,7 @@ import { handleError } from "../utils";
 import User from "../db/models/user.model";
 import Event from "../db/models/event.model";
 import { ObjectId } from 'mongodb';
+import Category from "../db/models/category.model";
 
 export const createRegistration = async (registration: CreateRegistrationParams) => {
     try {
@@ -44,6 +45,17 @@ export async function getRegistrationsByUser({ userId, limit = 3, page }: GetReg
                     model: User,
                     select: '_id firstName lastName',
                 },
+                
+            })
+            .populate({
+                path: 'event',
+                model: Event,
+                populate: {
+                    path: 'category',
+                    model: Category,
+                    select: '_id title',
+                },
+
             })
 
         const registrationsCount = await Registration.distinct('event._id').countDocuments(conditions)

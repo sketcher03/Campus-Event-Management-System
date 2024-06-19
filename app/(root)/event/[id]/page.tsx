@@ -72,7 +72,7 @@ const SingleEvent = async ({ params: { id }, searchParams }: SearchEventParamPro
                                 </div>
                             )
                         }
-                        <p className="absolute top-[95px] right-[20px] text-base text-orange-300 font-semibold">{ eventWishCount } users interested!</p>
+                        <p className="absolute top-[95px] right-[20px] text-base text-orange-300 font-semibold">{eventWishCount} users interested!</p>
 
                         <div className="max-w-[240px]">
                             <Avatar className="h-[240px] w-[240px]">
@@ -151,19 +151,22 @@ const SingleEvent = async ({ params: { id }, searchParams }: SearchEventParamPro
                     <h3 className="p-semibold-18 text-orange-800 flex gap-2 items-center"><Link2 className="w-[20px] h-[20px]" />Event URL</h3>
                     <Separator className='bg-orange-200 my-4 h-[1px] w-[100px]' />
                     <p className="p-regular-18 text-orange-500 underline">{event.url}</p>
-                </div>
-                {
+                    {
+                        (role === "admin" || "organizer") && isEventCreator && (
+                            <Button className="bg-orange-400 hover:bg-orange-500 mt-6">
+                                <Link href={`/attendee?eventId=${event._id}`}>
+                                    Registration Details
+                                </Link>
+                            </Button>
 
-                }
+                        )
+                    }
+                </div>
                 <CountdownTimer targetDate={event.endDate} labels={timerLabels} />
             </div>
 
-            {
-                (role === "admin" || "organizer") && isEventCreator && (
-                    <Button className="bg-orange-400 hover:bg-orange-500"><Link href={`/attendee?eventId=${event._id}`}>Registration Details</Link></Button>
-                )
-            }
             
+
 
             <section className="flex justify-center mt-16 bg-amber-100 rounded-xl py-8">
                 <EventRegistration event={event} />
