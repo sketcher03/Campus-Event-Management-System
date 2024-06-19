@@ -8,9 +8,10 @@ import { addToWishlist } from "@/lib/actions/user.actions"
 import { AddToWishlistProps } from "@/types"
 
 const AddToWishlist = ({ eventId, userId }: AddToWishlistProps) => {
-    const pathname = usePathname()
-    let [isPending, startTransition] = useTransition()
-
+    
+    const pathname = usePathname();
+    const [isPending, startTransition] = useTransition();
+    
     return (
         <>
             <Button className="p-2 absolute top-[40px] right-[20px] border-2 border-orange-500 rounded-xl bg-transparent hover:bg-transparent" onClick={() =>
@@ -20,7 +21,7 @@ const AddToWishlist = ({ eventId, userId }: AddToWishlistProps) => {
             }>
                 <div className="flex flex-row gap-2">
                     <Heart className="text-orange-500" />
-                    <p className="text-orange-500">{isPending ? 'Adding...' : 'Add To Wishlist'}</p>
+                    <p className="text-orange-500 font-semibold">{isPending ? 'Adding...' : 'Add To Wishlist'}</p>
                 </div>
             </Button>
         </>

@@ -8,6 +8,7 @@ import {
     AlertTitle,
 } from "@/components/ui/alert"
 import EventCard from "./EventCard"
+import Pagination from "./Pagination"
 
 const EventCollection = ({
     data,
@@ -40,6 +41,10 @@ const EventCollection = ({
                                 )
                             })}
                         </ul>
+                        
+                        {totalPages > 1 && (
+                            <Pagination urlParamName={urlParamName} page={page} totalPages={totalPages} />
+                        )}
                     </div>
 
                 ) : (

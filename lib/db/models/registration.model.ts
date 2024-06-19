@@ -16,6 +16,15 @@ export interface IRegistration extends Document {
     fees: string
 }
 
+export type IRegistrationItem = {
+    _id: string
+    fees: string
+    createdAt: Date
+    eventTitle: string
+    eventId: string
+    attendee: string
+}
+
 const RegistrationSchema = new Schema({
     event: { type: Schema.Types.ObjectId, ref: "Event" },
     attendee: { type: Schema.Types.ObjectId, ref: "User" },

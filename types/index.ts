@@ -133,12 +133,12 @@ export type CreateRegistrationParams = {
     transactionId?: string
 }
 
-export type GetOrdersByEventParams = {
+export type GetRegistrationsByEventParams = {
     eventId: string
     searchString: string
 }
 
-export type GetOrdersByUserParams = {
+export type GetRegistrationsByUserParams = {
     userId: string | null
     limit?: number
     page: string | number | null

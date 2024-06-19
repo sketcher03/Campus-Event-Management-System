@@ -326,3 +326,7 @@ body {
 .cl-userButtonBox {
   padding: 0.5rem;
 }
+
+#disqus_thread a {
+  color: #ea580c;
+}

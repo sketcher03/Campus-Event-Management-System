@@ -1,4 +1,4 @@
-import { formatDateAndTime } from '@/lib/utils';
+import { formatDateAndTime, formatPrice } from '@/lib/utils';
 import { EventCardProps } from '@/types'
 import { auth } from '@clerk/nextjs/server';
 import { Ellipsis } from 'lucide-react';
@@ -74,7 +74,7 @@ const EventCard = (props: EventCardProps) => {
                 {
                     !props.hidePrice && (
                         <div className="flex gap-2">
-                            <h1 className='p-semibold-14 rounded-full bg-green-200 px-4 py-1 text-green-60'>{props.event.isFree ? 'FREE' : `BDT. ${props.event.price}`}</h1>
+                            <h1 className='p-semibold-14 rounded-full bg-green-200 px-4 py-1 text-green-60'>{props.event.isFree ? 'FREE' : `${formatPrice(props.event.price)}`}</h1>
                             <p className="p-semibold-14 rounded-full bg-orange-500 px-4 py-1 text-white line-clamp-1">{props.event.category.title}</p>
                         </div>
                     )

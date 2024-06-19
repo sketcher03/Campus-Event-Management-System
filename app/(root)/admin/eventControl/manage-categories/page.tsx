@@ -45,8 +45,8 @@ export default async function CreateCategory() {
         <>
             <section className="bg-orange-50 pt-10 pb-4">
                 <div className="wrapper flex flex-col items-center">
-                    <h3 className="h3-bold text-center text-orange-500 py-2">Approve Events</h3>
-                    <p className="text-center text-orange-300 mb-6">Approved Events will show up in the "Browse Events" Section</p>
+                    <h3 className="h3-bold text-center text-orange-500 py-2">Manage Categories</h3>
+                    <p className="text-center text-orange-300 mb-6">Admin Dashboard for Managing Event Categories</p>
                     <CreateCategoryAlertBox />
                 </div>
             </section>

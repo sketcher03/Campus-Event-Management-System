@@ -55,11 +55,28 @@ export const getEvent = async (eventId: string) => {
     }
 }
 
+export const getEventWishCount = async (eventId: string) => {
+    try {
+        await connectToDb();
+
+        const count = await User.countDocuments({ wishlist: eventId })
+
+        return JSON.parse(JSON.stringify(count));
+
+    } catch (error) {
+        handleError(error);
+    }
+}
+
 export const getAllEvents = async ({ query, limit = 6, page, category }: GetAllEventsParams) => {
     try {
         await connectToDb();
 
-        const conditions = {};
+        const titleCondition = query ? { title: { $regex: query, $options: 'i' }} : {}
+        const categoryCondition = category ? await getCategoryByTitle(category) : null
+        const conditions = {
+            $and: [titleCondition, categoryCondition ? { category: categoryCondition._id } : {}],
+        }
 
         const events = await populateEvent(Event.find(conditions)
             .sort({ createdAt: "desc" })
@@ -179,11 +196,19 @@ export async function updateEvent({ event, userId, path }: UpdateEventParams) {
     }
 }
 
+const getCategoryByTitle = async (name: string) => {
+    return Category.findOne({ title: { $regex: name, $options: 'i' } })
+}
+
 export const getAllLiveEvents = async ({ query, limit = 6, page, category }: GetAllEventsParams) => {
     try {
         await connectToDb();
 
-        const conditions = { status: "live" };
+        const titleCondition = query ? { title: { $regex: query, $options: 'i' }, status: "live" } : { status: "live" }
+        const categoryCondition = category ? await getCategoryByTitle(category) : null
+        const conditions = {
+            $and: [titleCondition, categoryCondition ? { category: categoryCondition._id } : {}],
+        }
 
         const events = await populateEvent(Event.find(conditions)
             .sort({ createdAt: "desc" })
