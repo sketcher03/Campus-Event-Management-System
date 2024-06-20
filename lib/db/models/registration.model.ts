@@ -29,7 +29,7 @@ const RegistrationSchema = new Schema({
     event: { type: Schema.Types.ObjectId, ref: "Event" },
     attendee: { type: Schema.Types.ObjectId, ref: "User" },
     createdAt: { type: Date, default: Date.now },
-    transactionId: { type: String, unique: true },
+    transactionId: { type: String },
     fees: { type: String, default: "0" }
 })
 
