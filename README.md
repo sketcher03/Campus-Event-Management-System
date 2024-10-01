@@ -14,7 +14,7 @@ Then:
 npm install
 ```
 
-** You will need your own .env.local file for it to work. **
+** You will need your own .env.local file to work. **
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
